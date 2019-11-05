@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindConsole.Models
 {
@@ -13,7 +14,11 @@ namespace NorthwindConsole.Models
         public string Region { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
+
+        [Phone]
         public string Phone { get; set; }
+
+        [Phone]
         public string Fax { get; set; }
 
         public virtual List<Product> Products { get; set; }

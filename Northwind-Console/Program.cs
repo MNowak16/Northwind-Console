@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using NLog;
 using NorthwindConsole.Models;
@@ -63,6 +64,9 @@ namespace NorthwindConsole
                             {
                                 logger.Info("Validation passed");
                                 // TODO: save category to db
+                                //getvalidationerrors ONLY checks validation against annotation in the models
+                                db.Categories.Add(category);
+                                db.SaveChanges();
                             }
                         }
                         if (!isValid)
@@ -72,7 +76,8 @@ namespace NorthwindConsole
                                 logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
                             }
                         }
-                    } else if (choice == "3")
+                    }
+                    else if (choice == "3")
                     {
                         var db = new NorthwindContext();
                         var query = db.Categories.OrderBy(p => p.CategoryId);
@@ -109,6 +114,21 @@ namespace NorthwindConsole
 
                 } while (choice.ToLower() != "q");
             }
+
+            catch (DbEntityValidationException e)
+            {
+                logger.Error(e.Message);
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    logger.Error("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:", 
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        logger.Error("- Property: \"{0}\", Error: \"{1}\"", ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            }
+
             catch (Exception ex)
             {
                 logger.Error(ex.Message);

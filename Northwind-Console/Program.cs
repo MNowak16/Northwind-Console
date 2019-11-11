@@ -63,8 +63,6 @@ namespace NorthwindConsole
                             else
                             {
                                 logger.Info("Validation passed");
-                                // TODO: save category to db
-                                //getvalidationerrors ONLY checks validation against annotation in the models
                                 db.Categories.Add(category);
                                 db.SaveChanges();
                             }
@@ -87,12 +85,13 @@ namespace NorthwindConsole
                         {
                             Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
                         }
+
                         int id = int.Parse(Console.ReadLine());
                         Console.Clear();
                         logger.Info($"CategoryId {id} selected");
                         Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
                         Console.WriteLine($"{category.CategoryName} - {category.Description}");
-                        foreach(Product p in category.Products)
+                        foreach (Product p in category.Products)
                         {
                             Console.WriteLine(p.ProductName);
                         }

@@ -23,6 +23,8 @@ namespace NorthwindConsole
                     Console.WriteLine("2) Add Category");
                     Console.WriteLine("3) Display Category and related products");
                     Console.WriteLine("4) Display all Categories and their related products");
+                    Console.WriteLine("5) Edit Category Name");
+                    Console.WriteLine("6) Delete Category");
                     Console.WriteLine("\"q\" to quit");
                     choice = Console.ReadLine();
                     Console.Clear();
@@ -108,6 +110,59 @@ namespace NorthwindConsole
                                 Console.WriteLine($"\t{p.ProductName}");
                             }
                         }
+                    }
+                    else if (choice == "5")
+                    {
+                        //get context                        
+                        var db = new NorthwindContext();
+                        var query = db.Categories.OrderBy(p => p.CategoryId);
+
+                        //ask user to select existing category
+                        Console.WriteLine("Select the category ID you want to edit:");
+                        foreach (var item in query)
+                        {
+                            Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
+                        }
+
+                        int id = int.Parse(Console.ReadLine());
+                        Console.Clear();
+                        logger.Info($"CategoryId {id} selected");
+                        
+                        //get category
+                        Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
+                        
+                        //ask user to provide updated name
+                        Console.WriteLine("Enter the new Category Name");
+                        var newName = Console.ReadLine();
+                        logger.Info($"User entered {newName}");
+
+                        //update category in database
+                        category.CategoryName = newName;
+                        db.SaveChanges();
+                    }
+                    else if (choice == "6")
+                    {
+                        //get context                        
+                        var db = new NorthwindContext();
+                        var query = db.Categories.OrderBy(p => p.CategoryId);
+
+                        //ask user to select existing category
+                        Console.WriteLine("Select the category ID to be deleted:");
+                        foreach (var item in query)
+                        {
+                            Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
+                        }
+
+                        int id = int.Parse(Console.ReadLine());
+                        Console.Clear();
+                        logger.Info($"CategoryId {id} selected");
+
+                        //get category
+                        Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
+
+                        //delete category in database
+                        db.Categories.Remove(category);
+                        db.SaveChanges();
                     }
                     Console.WriteLine();
 

@@ -25,6 +25,9 @@ namespace NorthwindConsole
                     Console.WriteLine("4) Display all Categories and their related products");
                     Console.WriteLine("5) Edit Category Name");
                     Console.WriteLine("6) Delete Category");
+                    Console.WriteLine("7) Display Products");
+                    Console.WriteLine("8) Add New Product");
+                    Console.WriteLine("9) Edit Product");
                     Console.WriteLine("\"q\" to quit");
                     choice = Console.ReadLine();
                     Console.Clear();
@@ -33,7 +36,7 @@ namespace NorthwindConsole
                     {
                         //call Display all CAtegories method
                         CategoryUtil.DisplayAll();
-                    } 
+                    }
                     else if (choice == "2")
                     {
                         CategoryUtil.Add();
@@ -53,6 +56,24 @@ namespace NorthwindConsole
                     else if (choice == "6")
                     {
                         CategoryUtil.Delete();
+                    }
+                    else if (choice == "7")
+                    {
+                        //Display all records in the Products table (ProductName only)
+                        //user decides if they want to see all products, discontinued products, or active (not discontinued) products
+                        //Discontinued products should be distinguished from active products.
+                    }
+                    else if (choice == "8")
+                    {
+                        //Add  new product
+
+                    }
+                    else if (choice == "9")
+                    {
+                        //Return a list of product fields
+                        //user selects which field to update
+                        //validates user input
+                        //writes user input back to database
                     }
                     Console.WriteLine();
 

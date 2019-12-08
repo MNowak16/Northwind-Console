@@ -59,11 +59,11 @@ namespace NorthwindConsole
                     }
                     else if (choice == "7")
                     {
-                        //ProductUtil.DisplayMenu();
+                        ProductUtil.DisplayMenu();
                     }
                     else if (choice == "8")
                     {
-                        //ProductUtil.Add();
+                        ProductUtil.Add();
                     }
                     else if (choice == "9")
                     {

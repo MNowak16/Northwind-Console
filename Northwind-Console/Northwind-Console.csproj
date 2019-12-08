@@ -58,6 +58,7 @@
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\NorthwindContext.cs" />
+    <Compile Include="Utils\CategoryUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

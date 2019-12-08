@@ -67,10 +67,7 @@ namespace NorthwindConsole
                     }
                     else if (choice == "9")
                     {
-                        //Return a list of product fields
-                        //user selects which field to update
-                        //validates user input
-                        //writes user input back to database
+                        ProductUtil.Edit();
                     }
                     Console.WriteLine();
 

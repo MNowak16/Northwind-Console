@@ -5,6 +5,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using NLog;
 using NorthwindConsole.Models;
+using System.Data;
 
 namespace NorthwindConsole
 {
@@ -162,6 +163,19 @@ namespace NorthwindConsole
             Console.WriteLine();
         }
 
+        public static void DisplayAllWithIDs()
+        {
+            var db = new NorthwindContext();
+            var query = db.Products.OrderBy(p => p.ProductName);
+
+            Console.WriteLine($"{query.Count()} records returned");
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductID}) {item.ProductName}");
+            }
+            Console.WriteLine();
+        }
+
         public static void DisplayActive()
         {
             var db = new NorthwindContext();
@@ -215,6 +229,74 @@ namespace NorthwindConsole
                     ProductUtil.DisplayDiscontinued();
                 }
             } while (choice.ToLower() != "q");
+        }
+
+        public static void Edit()
+        {
+            string productChoice;
+            string columnChoice;
+            do
+            {
+                //Display all products with IDs
+                ProductUtil.DisplayAllWithIDs();
+
+                Console.WriteLine("Enter the ID of the product you would like to edit:");
+                productChoice = Console.ReadLine();
+                Console.Clear();
+                logger.Info($"Option {productChoice} selected");
+
+                //user selects with product to update
+                //user selects which field to update
+                //validates user input
+                //update field in database
+                //save record
+
+                //user selects which field to update
+                Console.WriteLine("Select which property to edit:");
+                Console.WriteLine("1) Product Name");
+                Console.WriteLine("2) Quantity Per Unit");
+                Console.WriteLine("3) Unit Price");
+                Console.WriteLine("4) Units in Stock");
+                Console.WriteLine("5) Units on Order");
+                Console.WriteLine("6) Reorder Level");
+                Console.WriteLine("7) Discontinued");
+                Console.WriteLine("8) Category ID");
+                Console.WriteLine("9) Supplier ID");
+                Console.WriteLine("Enter \"q\" to go back to Main Menu");
+
+                columnChoice = Console.ReadLine();
+                Console.Clear();
+                logger.Info($"Option {columnChoice} selected");
+
+                if (columnChoice == "1")
+                {
+                    Product product = new Product();
+                    var db = new NorthwindContext();
+
+                    int id = int.Parse(productChoice);
+                    var query = db.Products.Where(p => p.ProductID == id)
+                                        .Select(p => product.ProductName);
+
+                    Console.WriteLine($"Existing name: {query.FirstOrDefault()}");
+                    Console.WriteLine("Please enter the new name: ");
+                    string newName = Console.ReadLine();
+                    Console.WriteLine();
+                    logger.Info($"User Entered: {newName}");
+
+                    product.ProductName = newName;
+                    db.SaveChanges();
+                }
+
+                else if (columnChoice == "2")
+                {
+
+                }
+
+                else if (columnChoice == "3")
+                {
+
+                }
+            } while (columnChoice.ToLower() != "q");
         }
     }
 }

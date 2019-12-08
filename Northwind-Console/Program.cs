@@ -5,7 +5,6 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using NLog;
 using NorthwindConsole.Models;
-using NorthwindConsole.Utils;
 
 namespace NorthwindConsole
 {
@@ -35,7 +34,6 @@ namespace NorthwindConsole
                     logger.Info($"Option {choice} selected");
                     if (choice == "1")
                     {
-                        //call Display all CAtegories method
                         CategoryUtil.DisplayAll();
                     }
                     else if (choice == "2")
@@ -60,9 +58,7 @@ namespace NorthwindConsole
                     }
                     else if (choice == "7")
                     {
-                        //Display all records in the Products table (ProductName only)
-                        //user decides if they want to see all products, discontinued products, or active (not discontinued) products
-                        //Discontinued products should be distinguished from active products.
+                        ProductUtil.DisplayMenu();
                     }
                     else if (choice == "8")
                     {

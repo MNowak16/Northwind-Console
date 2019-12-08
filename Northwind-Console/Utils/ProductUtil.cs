@@ -5,7 +5,6 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using NLog;
 using NorthwindConsole.Models;
-using NorthwindConsole.Utils;
 
 namespace NorthwindConsole
 {
@@ -141,6 +140,72 @@ namespace NorthwindConsole
 
             db.Products.Add(newProduct);
             db.SaveChanges();
+        }
+
+
+        public static void DisplayAll()
+        {
+            var db = new NorthwindContext();
+            var query = db.Products.OrderBy(p => p.ProductName);
+
+            Console.WriteLine($"{query.Count()} records returned");
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductName} - {item.Discontinued}");
+            }
+        }
+        
+        public static void DisplayActive()
+        {
+            var db = new NorthwindContext();
+            var query = db.Products.OrderBy(p => p.ProductName).Where(p => p.Discontinued == false);
+
+            Console.WriteLine($"{query.Count()} records returned");
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductName}");
+            }
+        }
+
+        public static void DisplayDiscontinued()
+        {
+            var db = new NorthwindContext();
+            var query = db.Products.OrderBy(p => p.ProductName).Where(p => p.Discontinued == true);
+
+            Console.WriteLine($"{query.Count()} records returned");
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductName} - {item.Discontinued}");
+            }
+        }
+
+        public static void DisplayMenu()
+        {
+            string choice;
+            do
+            {
+                Console.WriteLine("1) Display All Products");
+                Console.WriteLine("2) Display Active Products");
+                Console.WriteLine("3) Display Discontinued Products");
+                Console.WriteLine("Enter \"q\" to go back to Main Menu");
+                choice = Console.ReadLine();
+                logger.Info($"Option {choice} selected");
+
+                if (choice == "1")
+                {
+                    ProductUtil.DisplayAll();
+                }
+
+                else if (choice == "2")
+                {
+                    ProductUtil.DisplayActive();
+                }
+
+                else if (choice == "3")
+                {
+                    ProductUtil.DisplayDiscontinued();
+                }
+            } while (choice.ToLower() != "q");
         }
     }
 }

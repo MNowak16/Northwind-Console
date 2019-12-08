@@ -5,6 +5,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using NLog;
 using NorthwindConsole.Models;
+using NorthwindConsole.Utils;
 
 namespace NorthwindConsole
 {
@@ -65,8 +66,7 @@ namespace NorthwindConsole
                     }
                     else if (choice == "8")
                     {
-                        //Add  new product
-
+                        ProductUtil.Add();
                     }
                     else if (choice == "9")
                     {

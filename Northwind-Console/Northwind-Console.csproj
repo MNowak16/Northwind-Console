@@ -59,6 +59,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\NorthwindContext.cs" />
     <Compile Include="Utils\CategoryUtil.cs" />
+    <Compile Include="Utils\ProductUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

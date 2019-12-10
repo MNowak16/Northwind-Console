@@ -6,6 +6,7 @@ using System.Linq;
 using NLog;
 using NorthwindConsole.Models;
 using System.Data;
+using NorthwindConsole.Utils;
 
 namespace NorthwindConsole
 {
@@ -143,65 +144,6 @@ namespace NorthwindConsole
             db.SaveChanges();
         }
 
-        public static void DisplayAll()
-        {
-            var db = new NorthwindContext();
-            var query = db.Products.OrderBy(p => p.ProductName);
-
-            Console.WriteLine($"{query.Count()} records returned");
-            foreach (var item in query)
-            {
-                if (item.Discontinued == true)
-                {
-                    Console.WriteLine($"{item.ProductName} - Discontinued");
-                }
-                else if (item.Discontinued == false)
-                {
-                    Console.WriteLine($"{item.ProductName} - Active");
-                }
-            }
-            Console.WriteLine();
-        }
-
-        public static void DisplayAllWithIDs()
-        {
-            var db = new NorthwindContext();
-            var query = db.Products.OrderBy(p => p.ProductName);
-
-            Console.WriteLine($"{query.Count()} records returned");
-            foreach (var item in query)
-            {
-                Console.WriteLine($"{item.ProductID}) {item.ProductName}");
-            }
-            Console.WriteLine();
-        }
-
-        public static void DisplayActive()
-        {
-            var db = new NorthwindContext();
-            var query = db.Products.OrderBy(p => p.ProductName).Where(p => p.Discontinued == false);
-
-            Console.WriteLine($"{query.Count()} records returned");
-            foreach (var item in query)
-            {
-                Console.WriteLine($"{item.ProductName}");
-            }
-            Console.WriteLine();
-        }
-
-        public static void DisplayDiscontinued()
-        {
-            var db = new NorthwindContext();
-            var query = db.Products.OrderBy(p => p.ProductName).Where(p => p.Discontinued == true);
-
-            Console.WriteLine($"{query.Count()} records returned");
-            foreach (var item in query)
-            {
-                Console.WriteLine($"{item.ProductName}");
-            }
-            Console.WriteLine();
-        }
-
         public static void DisplayMenu()
         {
             string choice;
@@ -214,20 +156,11 @@ namespace NorthwindConsole
                 choice = Console.ReadLine();
                 logger.Info($"Option {choice} selected");
 
-                if (choice == "1")
-                {
-                    ProductUtil.DisplayAll();
-                }
+                if (choice == "1") { ProductDisplays.DisplayAll(); }
 
-                else if (choice == "2")
-                {
-                    ProductUtil.DisplayActive();
-                }
+                else if (choice == "2") { ProductDisplays.DisplayActive(); }
 
-                else if (choice == "3")
-                {
-                    ProductUtil.DisplayDiscontinued();
-                }
+                else if (choice == "3") { ProductDisplays.DisplayDiscontinued(); }
             } while (choice.ToLower() != "q");
         }
 
@@ -235,68 +168,56 @@ namespace NorthwindConsole
         {
             string productChoice;
             string columnChoice;
-            do
+
+            //Display all products with IDs
+            ProductDisplays.DisplayAllWithIDs();
+
+            Console.WriteLine("Enter the ID of the product you would like to edit:");
+            productChoice = Console.ReadLine();
+            Console.Clear();
+            logger.Info($"Option {productChoice} selected");
+
+            //user selects which field to update
+            Console.WriteLine("Select which property to edit:");
+            Console.WriteLine("1) Product Name");
+            Console.WriteLine("2) Quantity Per Unit");
+            Console.WriteLine("3) Unit Price");
+            Console.WriteLine("4) Units in Stock");
+            Console.WriteLine("5) Units on Order");
+            Console.WriteLine("6) Reorder Level");
+            Console.WriteLine("7) Discontinued");
+            Console.WriteLine("8) Category ID");
+            Console.WriteLine("9) Supplier ID");
+            Console.WriteLine("Enter \"q\" to go back to Main Menu");
+
+            //user selects with product to update
+            columnChoice = Console.ReadLine();
+            Console.Clear();
+            logger.Info($"Option {columnChoice} selected");
+
+            if (columnChoice == "1") { ProductEdits.EditName(productChoice); }
+
+            else if (columnChoice == "2") { ProductEdits.EditQtyPerUnit(productChoice); }
+
+            else if (columnChoice == "3") { ProductEdits.EditUnitPrice(productChoice); }
+
+            else if (columnChoice == "4") { ProductEdits.EditUnitsInStock(productChoice); }
+
+            else if (columnChoice == "5") { ProductEdits.EditUnitsOnOrder(productChoice); }
+
+            else if (columnChoice == "6") { ProductEdits.EditReorderLevel(productChoice); }
+
+            else if (columnChoice == "7") { ProductEdits.EditDiscontinued(productChoice); }
+
+            else if (columnChoice == "8")
             {
-                //Display all products with IDs
-                ProductUtil.DisplayAllWithIDs();
 
-                Console.WriteLine("Enter the ID of the product you would like to edit:");
-                productChoice = Console.ReadLine();
-                Console.Clear();
-                logger.Info($"Option {productChoice} selected");
+            }
 
-                //user selects with product to update
-                //user selects which field to update
-                //validates user input
-                //update field in database
-                //save record
+            else if (columnChoice == "9")
+            {
 
-                //user selects which field to update
-                Console.WriteLine("Select which property to edit:");
-                Console.WriteLine("1) Product Name");
-                Console.WriteLine("2) Quantity Per Unit");
-                Console.WriteLine("3) Unit Price");
-                Console.WriteLine("4) Units in Stock");
-                Console.WriteLine("5) Units on Order");
-                Console.WriteLine("6) Reorder Level");
-                Console.WriteLine("7) Discontinued");
-                Console.WriteLine("8) Category ID");
-                Console.WriteLine("9) Supplier ID");
-                Console.WriteLine("Enter \"q\" to go back to Main Menu");
-
-                columnChoice = Console.ReadLine();
-                Console.Clear();
-                logger.Info($"Option {columnChoice} selected");
-
-                if (columnChoice == "1")
-                {
-                    Product product = new Product();
-                    var db = new NorthwindContext();
-
-                    int id = int.Parse(productChoice);
-                    var query = db.Products.Where(p => p.ProductID == id)
-                                        .Select(p => product.ProductName);
-
-                    Console.WriteLine($"Existing name: {query.FirstOrDefault()}");
-                    Console.WriteLine("Please enter the new name: ");
-                    string newName = Console.ReadLine();
-                    Console.WriteLine();
-                    logger.Info($"User Entered: {newName}");
-
-                    product.ProductName = newName;
-                    db.SaveChanges();
-                }
-
-                else if (columnChoice == "2")
-                {
-
-                }
-
-                else if (columnChoice == "3")
-                {
-
-                }
-            } while (columnChoice.ToLower() != "q");
+            }
         }
     }
 }

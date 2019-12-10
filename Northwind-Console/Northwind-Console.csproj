@@ -59,6 +59,8 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\NorthwindContext.cs" />
     <Compile Include="Utils\CategoryUtil.cs" />
+    <Compile Include="Utils\ProductDisplays.cs" />
+    <Compile Include="Utils\ProductEdits.cs" />
     <Compile Include="Utils\ProductUtil.cs" />
   </ItemGroup>
   <ItemGroup>

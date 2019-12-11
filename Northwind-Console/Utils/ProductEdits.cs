@@ -152,5 +152,63 @@ namespace NorthwindConsole.Utils
             product.Discontinued = Convert.ToBoolean(newDiscontinued);
             db.SaveChanges();
         }
+
+        public static void EditCategoryID(string productChoice)
+        {
+             var db = new NorthwindContext();
+
+            //validates user input
+            int id = int.Parse(productChoice);
+            var query = db.Products.Where(p => p.ProductID == id);
+            var catQuery = db.Categories;
+
+            Product product = db.Products.FirstOrDefault(c => c.ProductID == id);
+
+            Console.WriteLine($"Existing Cateogry ID: {query.FirstOrDefault().CategoryId}");
+            Console.WriteLine();
+            //Display categories with IDs
+            foreach (var item in catQuery)
+            {
+                Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
+            }
+            Console.WriteLine();
+            Console.Write("Please enter the Category ID from the list above: ");
+
+            string newCategoryID = Console.ReadLine();
+            Console.WriteLine();
+            logger.Info($"User Entered: {newCategoryID}");
+
+            product.CategoryId = Convert.ToInt32(newCategoryID);
+            db.SaveChanges();
+        }
+
+        public static void EditSupplierID(string productChoice)
+        {
+            var db = new NorthwindContext();
+
+            //validates user input
+            int id = int.Parse(productChoice);
+            var query = db.Products.Where(p => p.ProductID == id);
+            var supQuery = db.Suppliers;
+
+            Product product = db.Products.FirstOrDefault(c => c.ProductID == id);
+
+            Console.WriteLine($"Existing Supplier ID: {query.FirstOrDefault().SupplierId}");
+            Console.WriteLine();
+            //Display categories with IDs
+            foreach (var item in supQuery)
+            {
+                Console.WriteLine($"{item.SupplierId}) {item.CompanyName}");
+            }
+            Console.WriteLine();
+            Console.Write("Please enter the Supplier ID from the list above: ");
+
+            string newSupplierID = Console.ReadLine();
+            Console.WriteLine();
+            logger.Info($"User Entered: {newSupplierID}");
+
+            product.SupplierId = Convert.ToInt32(newSupplierID);
+            db.SaveChanges();
+        }
     }
 }

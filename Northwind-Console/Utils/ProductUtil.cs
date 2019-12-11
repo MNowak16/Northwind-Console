@@ -209,10 +209,7 @@ namespace NorthwindConsole
 
             else if (columnChoice == "7") { ProductEdits.EditDiscontinued(productChoice); }
 
-            else if (columnChoice == "8")
-            {
-
-            }
+            else if (columnChoice == "8") { ProductEdits.EditCategoryID(productChoice); }
 
             else if (columnChoice == "9")
             {

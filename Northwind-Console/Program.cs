@@ -33,44 +33,17 @@ namespace NorthwindConsole
                     choice = Console.ReadLine();
                     Console.Clear();
                     logger.Info($"Option {choice} selected");
-                    if (choice == "1")
-                    {
-                        CategoryUtil.Display();
-                    } 
-                    else if (choice == "2")
-                    {
-                        CategoryUtil.Add();
-                    }
-                    else if (choice == "3")
-                    {
-                        CategoryUtil.DisplaySelectedWithRelatedProducts();
-                    }
-                    else if (choice == "4")
-                    {
-                        CategoryUtil.DisplayAllWithProducts();
-                    }
-                    else if (choice == "5")
-                    {
-                        CategoryUtil.EditName();
-                    }
-                    else if (choice == "6")
-                    {
-                        CategoryUtil.Delete();
-                    }
-                    else if (choice == "7")
-                    {
-                        ProductUtil.DisplayMenu();
-                    }
-                    else if (choice == "8")
-                    {
-                        ProductUtil.Add();
-                    }
-                    else if (choice == "9")
-                    {
-                        ProductUtil.Edit();
-                    }
-                    Console.WriteLine();
 
+                    if (choice == "1") { CategoryUtil.Display(); } 
+                    else if (choice == "2") { CategoryUtil.Add(); }
+                    else if (choice == "3") { CategoryUtil.DisplaySelectedWithRelatedProducts(); }
+                    else if (choice == "4") { CategoryUtil.DisplayAllWithProducts(); }
+                    else if (choice == "5") { CategoryUtil.EditName(); }
+                    else if (choice == "6") { CategoryUtil.Delete(); }
+                    else if (choice == "7") { ProductUtil.DisplayMenu(); }
+                    else if (choice == "8") { ProductUtil.Add(); }
+                    else if (choice == "9") { ProductUtil.Edit(); }
+                    Console.WriteLine();
                 } while (choice.ToLower() != "q");
             }
 

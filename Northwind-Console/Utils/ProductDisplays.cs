@@ -71,9 +71,5 @@ namespace NorthwindConsole.Utils
             }
             Console.WriteLine();
         }
-
-
-
-
     }
 }

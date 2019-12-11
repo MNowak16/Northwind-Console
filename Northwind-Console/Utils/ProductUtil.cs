@@ -157,9 +157,7 @@ namespace NorthwindConsole
                 logger.Info($"Option {choice} selected");
 
                 if (choice == "1") { ProductDisplays.DisplayAll(); }
-
                 else if (choice == "2") { ProductDisplays.DisplayActive(); }
-
                 else if (choice == "3") { ProductDisplays.DisplayDiscontinued(); }
             } while (choice.ToLower() != "q");
         }
@@ -196,25 +194,14 @@ namespace NorthwindConsole
             logger.Info($"Option {columnChoice} selected");
 
             if (columnChoice == "1") { ProductEdits.EditName(productChoice); }
-
             else if (columnChoice == "2") { ProductEdits.EditQtyPerUnit(productChoice); }
-
             else if (columnChoice == "3") { ProductEdits.EditUnitPrice(productChoice); }
-
             else if (columnChoice == "4") { ProductEdits.EditUnitsInStock(productChoice); }
-
             else if (columnChoice == "5") { ProductEdits.EditUnitsOnOrder(productChoice); }
-
             else if (columnChoice == "6") { ProductEdits.EditReorderLevel(productChoice); }
-
             else if (columnChoice == "7") { ProductEdits.EditDiscontinued(productChoice); }
-
             else if (columnChoice == "8") { ProductEdits.EditCategoryID(productChoice); }
-
-            else if (columnChoice == "9")
-            {
-
-            }
+            else if (columnChoice == "9") { ProductEdits.EditSupplierID(productChoice); }
         }
     }
 }

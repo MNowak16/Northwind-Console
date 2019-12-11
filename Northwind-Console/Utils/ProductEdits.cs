@@ -65,9 +65,18 @@ namespace NorthwindConsole.Utils
 
             Console.WriteLine($"Existing unit price: {query.FirstOrDefault().UnitPrice}");
             Console.Write("Please enter the new unit price: ");
-            string newUnitPrice = Console.ReadLine();
+            string ans = Console.ReadLine();
+            //validate answer is a number
+            decimal newUnitPrice;
+            while (!decimal.TryParse(ans, out newUnitPrice))
+            {
+                Console.Write("That is an invalid response. Please enter the new unit price: ");
+                ans = Console.ReadLine();
+                logger.Error("Invalid input (decimal): {Answer}", ans);
+            }
+
             Console.WriteLine();
-            logger.Info($"User Entered: {newUnitPrice}");
+            logger.Info($"User changed price to: {newUnitPrice}");
 
             product.UnitPrice = Convert.ToDecimal(newUnitPrice);
             db.SaveChanges();
@@ -85,7 +94,15 @@ namespace NorthwindConsole.Utils
 
             Console.WriteLine($"Existing units in stock: {query.FirstOrDefault().UnitsInStock}");
             Console.Write("Please enter the new units in stock: ");
-            string newUnitsInStock = Console.ReadLine();
+            string ans = Console.ReadLine();
+            //validate answer is a number
+            decimal newUnitsInStock;
+            while (!decimal.TryParse(ans, out newUnitsInStock))
+            {
+                Console.Write("That is an invalid response. Please enter the new units in stock: ");
+                ans = Console.ReadLine();
+                logger.Error("Invalid input (decimal): {Answer}", ans);
+            }
             Console.WriteLine();
             logger.Info($"User Entered: {newUnitsInStock}");
 
@@ -105,7 +122,15 @@ namespace NorthwindConsole.Utils
 
             Console.WriteLine($"Existing units on order: {query.FirstOrDefault().UnitsOnOrder}");
             Console.Write("Please enter the new units on order: ");
-            string newUnitsOnOrder = Console.ReadLine();
+            string ans = Console.ReadLine();
+            //validate answer is a number
+            decimal newUnitsOnOrder;
+            while (!decimal.TryParse(ans, out newUnitsOnOrder))
+            {
+                Console.Write("That is an invalid response. Please enter the new units on order: ");
+                ans = Console.ReadLine();
+                logger.Error("Invalid input (decimal): {Answer}", ans);
+            }
             Console.WriteLine();
             logger.Info($"User Entered: {newUnitsOnOrder}");
 
@@ -125,7 +150,15 @@ namespace NorthwindConsole.Utils
 
             Console.WriteLine($"Existing reorder level: {query.FirstOrDefault().ReorderLevel}");
             Console.Write("Please enter the new reorder level: ");
-            string newReorderLevel = Console.ReadLine();
+            string ans = Console.ReadLine();
+            //validate answer is a number
+            decimal newReorderLevel;
+            while (!decimal.TryParse(ans, out newReorderLevel))
+            {
+                Console.Write("That is an invalid response. Please enter the new reorder level: ");
+                ans = Console.ReadLine();
+                logger.Error("Invalid input (decimal): {Answer}", ans);
+            }
             Console.WriteLine();
             logger.Info($"User Entered: {newReorderLevel}");
 
@@ -166,13 +199,15 @@ namespace NorthwindConsole.Utils
 
             Console.WriteLine($"Existing Cateogry ID: {query.FirstOrDefault().CategoryId}");
             Console.WriteLine();
+
             //Display categories with IDs
+            Console.WriteLine("List of Categories:");
             foreach (var item in catQuery)
             {
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
             Console.WriteLine();
-            Console.Write("Please enter the Category ID from the list above: ");
+            Console.Write("Please enter the new Category ID from the list above: ");
 
             string newCategoryID = Console.ReadLine();
             Console.WriteLine();
@@ -189,19 +224,21 @@ namespace NorthwindConsole.Utils
             //validates user input
             int id = int.Parse(productChoice);
             var query = db.Products.Where(p => p.ProductID == id);
-            var supQuery = db.Suppliers;
+            var supQuery = db.Suppliers.OrderBy(p => p.CompanyName);
 
             Product product = db.Products.FirstOrDefault(c => c.ProductID == id);
 
             Console.WriteLine($"Existing Supplier ID: {query.FirstOrDefault().SupplierId}");
             Console.WriteLine();
-            //Display categories with IDs
+
+            //Display suppliers with IDs
+            Console.WriteLine("List of Suppliers:");
             foreach (var item in supQuery)
             {
                 Console.WriteLine($"{item.SupplierId}) {item.CompanyName}");
             }
             Console.WriteLine();
-            Console.Write("Please enter the Supplier ID from the list above: ");
+            Console.Write("Please enter the new Supplier ID from the list above: ");
 
             string newSupplierID = Console.ReadLine();
             Console.WriteLine();

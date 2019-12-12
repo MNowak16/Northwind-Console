@@ -27,9 +27,9 @@ namespace NorthwindConsole.Utils
         public static void Add()
         {
             Category category = new Category();
-            Console.WriteLine("Enter Category Name:");
+            Console.Write("Enter Category Name: ");
             category.CategoryName = Console.ReadLine();
-            Console.WriteLine("Enter the Category Description:");
+            Console.Write("Enter the Category Description: ");
             category.Description = Console.ReadLine();
 
             ValidationContext context = new ValidationContext(category, null, null);
@@ -67,11 +67,13 @@ namespace NorthwindConsole.Utils
             var db = new NorthwindContext();
             var query = db.Categories.OrderBy(p => p.CategoryId);
 
-            Console.WriteLine("Select the category whose products you want to display:");
+            Console.WriteLine();
+            Console.WriteLine("List of Categories: ");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
+            Console.Write("Select the category whose products you want to display from the list above: ");
 
             int id = int.Parse(Console.ReadLine());
             Console.Clear();

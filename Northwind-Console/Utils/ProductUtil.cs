@@ -18,20 +18,20 @@ namespace NorthwindConsole
         {
             //Add  new product
             //Get product name
-            Console.WriteLine("Enter Product Name:");
+            Console.Write("Enter Product Name: ");
             var productName = Console.ReadLine();
 
             //Get Qty per Unit
-            Console.WriteLine("Quantity per Unit:");
+            Console.Write("Quantity per Unit: ");
             var quantityPerUnit = Console.ReadLine();
 
             //Get Unit Price
-            Console.WriteLine("Enter Unit Price:");
-            int unitPrice;
+            Console.Write("Enter Unit Price: ");
+            decimal unitPrice;
             string unitPriceStr = Console.ReadLine();
-            while (!int.TryParse(unitPriceStr, out unitPrice))
+            while (!decimal.TryParse(unitPriceStr, out unitPrice))
             {
-                Console.WriteLine("Please enter valid unit price");
+                Console.Write("Please enter valid unit price: ");
                 unitPriceStr = Console.ReadLine();
             }
 
@@ -41,89 +41,93 @@ namespace NorthwindConsole
             var categoryQuery = db.Categories.OrderBy(p => p.CategoryId);
 
             //ask user to select existing category
-            Console.WriteLine("Select Cateogry ID from the list below:");
+            Console.WriteLine();
+            Console.WriteLine("List of Categories: ");
             foreach (var item in categoryQuery)
             {
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
+            Console.WriteLine();
+            Console.Write("Select Cateogry ID from the list above: ");
 
             int CategoryID = int.Parse(Console.ReadLine());
             Console.Clear();
             logger.Info($"CategoryId {CategoryID} selected");
 
-            //get category
-            Category category = db.Categories.FirstOrDefault(c => c.CategoryId == CategoryID);
+            ////get category
+            //Category category = db.Categories.FirstOrDefault(c => c.CategoryId == CategoryID);
 
-            ValidationContext CategoryContext = new ValidationContext(product, null, null);
-            List<ValidationResult> CategoryResults = new List<ValidationResult>();
+            //ValidationContext CategoryContext = new ValidationContext(product, null, null);
+            //List<ValidationResult> CategoryResults = new List<ValidationResult>();
 
-            var CategoryIsValid = Validator.TryValidateObject(product, CategoryContext, CategoryResults, true);
-            if (CategoryIsValid)
-            {
-                var db2 = new NorthwindContext();
-                // check for unique name
-                if (db2.Products.Any(c => c.ProductName == product.ProductName))
-                {
-                    // generate validation error
-                    CategoryIsValid = false;
-                    CategoryResults.Add(new ValidationResult("Name exists", new string[] { "ProductName" }));
-                }
-                else
-                {
-                    logger.Info("Validation passed");
-                }
-            }
-            if (!CategoryIsValid)
-            {
-                foreach (var result in CategoryResults)
-                {
-                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-                }
-            }
+            //var CategoryIsValid = Validator.TryValidateObject(product, CategoryContext, CategoryResults, true);
+            //if (CategoryIsValid)
+            //{
+            //    var db2 = new NorthwindContext();
+            //    // check for unique name
+            //    if (db2.Products.Any(c => c.ProductName == product.ProductName))
+            //    {
+            //        // generate validation error
+            //        CategoryIsValid = false;
+            //        CategoryResults.Add(new ValidationResult("Name exists", new string[] { "ProductName" }));
+            //    }
+            //    else
+            //    {
+            //        logger.Info("Validation passed");
+            //    }
+            //}
+            //else if (!CategoryIsValid)
+            //{
+            //    foreach (var result in CategoryResults)
+            //    {
+            //        logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+            //    }
+            //}
 
             //Get Supplier ID
             var supplierQuery = db.Suppliers.OrderBy(p => p.SupplierId);
 
             //ask user to select existing category
-            Console.WriteLine("Select Supplier ID from the list below:");
+            Console.WriteLine();
             foreach (var item in supplierQuery)
             {
                 Console.WriteLine($"{item.SupplierId}) {item.CompanyName}");
             }
-
+            Console.WriteLine();
+            Console.Write("Enter Supplier ID from the list above: ");
             int SupplierID = int.Parse(Console.ReadLine());
             Console.Clear();
             logger.Info($"SupplierID {SupplierID} selected");
 
-            //get category
-            Supplier supplier = db.Suppliers.FirstOrDefault(c => c.SupplierId == SupplierID);
+            ////get category
+            //Supplier supplier = db.Suppliers.FirstOrDefault(c => c.SupplierId == SupplierID);
 
-            ValidationContext context = new ValidationContext(supplier, null, null);
-            List<ValidationResult> results = new List<ValidationResult>();
+            //ValidationContext context = new ValidationContext(supplier, null, null);
+            //List<ValidationResult> results = new List<ValidationResult>();
 
-            var isValid = Validator.TryValidateObject(product, context, results, true);
-            if (isValid)
-            {
-                var db2 = new NorthwindContext();
-                // check for unique name
-                if (db2.Suppliers.Any(c => c.CompanyName == supplier.CompanyName))
-                {
-                    // generate validation error
-                    isValid = false;
-                    results.Add(new ValidationResult("Company exists", new string[] { "CompanyName" }));
-                }
-                else
-                {
-                    logger.Info("Validation passed");
-                }
-            }
-            if (!isValid)
-            {
-                foreach (var result in results)
-                {
-                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-                }
-            }
+            //var isValid = Validator.TryValidateObject(product, context, results, true);
+            //if (isValid)
+            //{
+            //    var db2 = new NorthwindContext();
+            //    // check for unique name
+            //    if (db2.Suppliers.Any(c => c.CompanyName == supplier.CompanyName))
+            //    {
+            //        // generate validation error
+            //        isValid = false;
+            //        results.Add(new ValidationResult("Company exists", new string[] { "CompanyName" }));
+            //    }
+            //    else
+            //    {
+            //        logger.Info("Validation passed");
+            //    }
+            //}
+            //if (!isValid)
+            //{
+            //    foreach (var result in results)
+            //    {
+            //        logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+            //    }
+            //}
 
             //Add New Product
             var newProduct = new Product

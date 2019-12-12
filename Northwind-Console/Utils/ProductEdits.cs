@@ -72,7 +72,6 @@ namespace NorthwindConsole.Utils
             {
                 Console.Write("That is an invalid response. Please enter the new unit price: ");
                 ans = Console.ReadLine();
-                logger.Error("Invalid input (decimal): {Answer}", ans);
             }
 
             Console.WriteLine();
@@ -101,7 +100,6 @@ namespace NorthwindConsole.Utils
             {
                 Console.Write("That is an invalid response. Please enter the new units in stock: ");
                 ans = Console.ReadLine();
-                logger.Error("Invalid input (decimal): {Answer}", ans);
             }
             Console.WriteLine();
             logger.Info($"User Entered: {newUnitsInStock}");
@@ -129,7 +127,6 @@ namespace NorthwindConsole.Utils
             {
                 Console.Write("That is an invalid response. Please enter the new units on order: ");
                 ans = Console.ReadLine();
-                logger.Error("Invalid input (decimal): {Answer}", ans);
             }
             Console.WriteLine();
             logger.Info($"User Entered: {newUnitsOnOrder}");
@@ -157,7 +154,6 @@ namespace NorthwindConsole.Utils
             {
                 Console.Write("That is an invalid response. Please enter the new reorder level: ");
                 ans = Console.ReadLine();
-                logger.Error("Invalid input (decimal): {Answer}", ans);
             }
             Console.WriteLine();
             logger.Info($"User Entered: {newReorderLevel}");
@@ -177,8 +173,15 @@ namespace NorthwindConsole.Utils
             Product product = db.Products.FirstOrDefault(c => c.ProductID == id);
 
             Console.WriteLine($"Existing discontinued flag: {query.FirstOrDefault().Discontinued}");
-            Console.Write("Please enter the new discontinued flag: ");
-            string newDiscontinued = Console.ReadLine();
+            Console.Write("Please enter the new discontinued flag (True/False): ");
+            string ans = Console.ReadLine();
+            //validate answer is a bool
+            bool newDiscontinued;
+            while (!bool.TryParse(ans, out newDiscontinued))
+            {
+                Console.Write("That is an invalid response. Please enter the new discontinued flag (True/False): ");
+                ans = Console.ReadLine();
+            }
             Console.WriteLine();
             logger.Info($"User Entered: {newDiscontinued}");
 

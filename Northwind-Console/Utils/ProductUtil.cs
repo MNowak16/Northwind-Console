@@ -16,10 +16,26 @@ namespace NorthwindConsole
 
         public static void Add()
         {
-            //Add  new product
+            Product product = new Product();
+
             //Get product name
             Console.Write("Enter Product Name: ");
-            var productName = Console.ReadLine();
+            product.ProductName = Console.ReadLine();
+
+            //Verify name is not a duplicate
+            bool isValid = Validate.isValidProductName(product.ProductName);
+            if (isValid == true)
+            {
+                logger.Info("Validation passed");
+            }
+            while (isValid == false)
+            {
+                Console.WriteLine("Product name already exists.");
+                Console.Write("Enter Product Name: ");
+                product.ProductName = Console.ReadLine();
+                isValid = Validate.isValidProductName(product.ProductName);
+                Console.Clear();
+            }
 
             //Get Qty per Unit
             Console.Write("Quantity per Unit: ");
@@ -36,7 +52,6 @@ namespace NorthwindConsole
             }
 
             //Get Category ID
-            Product product = new Product();
             Supplier supplier = new Supplier();
             var db = new NorthwindContext();
             var categoryQuery = db.Categories.OrderBy(p => p.CategoryId);
@@ -55,36 +70,13 @@ namespace NorthwindConsole
             Console.Clear();
             logger.Info($"CategoryId {CategoryID} selected");
 
-            ////get product
-            //ValidationContext productContext = new ValidationContext(product, null, null);
-            //List<ValidationResult> productResults = new List<ValidationResult>();
+            //Validate Category ID
+            //
+            //
+            //
+            //
+            //
 
-            //var isValidProduct = Validator.TryValidateObject(product, productContext, productResults, true);
-            //if (isValidProduct)
-            //{
-            //    var db2 = new NorthwindContext();
-            //    // check for unique name
-            //    if (db2.Products.Any(c => c.ProductName == product.ProductName))
-            //    {
-            //        // generate validation error
-            //        isValidProduct = false;
-            //        productResults.Add(new ValidationResult("Name exists", new string[] { "ProductName" }));
-            //    }
-            //    else
-            //    {
-            //        logger.Info("Validation passed");
-            //        db.Products.Add(product);
-            //        db.SaveChanges();
-            //    }
-            //}
-            //if (!isValidProduct)
-            //{
-            //    foreach (var result in productResults)
-            //    {
-            //        logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-            //    }
-            //}
-            
             //Get Supplier ID
             var supplierQuery = db.Suppliers.OrderBy(p => p.SupplierId);
 
@@ -100,40 +92,17 @@ namespace NorthwindConsole
             Console.Clear();
             logger.Info($"SupplierID {SupplierID} selected");
 
-            ////get supplier
-            //ValidationContext supplierContext = new ValidationContext(product, null, null);
-            //List<ValidationResult> supplierResults = new List<ValidationResult>();
-
-            //var isValidSupplier = Validator.TryValidateObject(supplier, supplierContext, supplierResults, true);
-            //if (isValidSupplier)
-            //{
-            //    var db2 = new NorthwindContext();
-            //    // check for unique name
-            //    if (db2.Suppliers.Any(c => c.CompanyName == product.ProductName))
-            //    {
-            //        // generate validation error
-            //        isValidSupplier = false;
-            //        supplierResults.Add(new ValidationResult("Company name exists", new string[] { "CompanyName" }));
-            //    }
-            //    else
-            //    {
-            //        logger.Info("Validation passed");
-            //        db.Suppliers.Add(supplier);
-            //        db.SaveChanges();
-            //    }
-            //}
-            //if (!isValidSupplier)
-            //{
-            //    foreach (var result in supplierResults)
-            //    {
-            //        logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-            //    }
-            //}
+            //Validate Supplier ID
+            //
+            //
+            //
+            //
+            //
 
             //Add New Product
             var newProduct = new Product
             {
-                ProductName = productName,
+                ProductName = product.ProductName,
                 QuantityPerUnit = quantityPerUnit,
                 UnitPrice = unitPrice,
                 UnitsInStock = 0,

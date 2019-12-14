@@ -158,6 +158,8 @@ namespace NorthwindConsole
                 Console.WriteLine("2) Display Active Products");
                 Console.WriteLine("3) Display Discontinued Products");
                 Console.WriteLine("Enter \"q\" to go back to Main Menu");
+                Console.WriteLine();
+                Console.Write("Enter your choice: ");
                 choice = Console.ReadLine();
                 logger.Info($"Option {choice} selected");
 

@@ -22,27 +22,25 @@ namespace NorthwindConsole
                 {
                     Console.WriteLine("1) Display Categories");
                     Console.WriteLine("2) Add Category");
-                    Console.WriteLine("3) Display Category and related products");
-                    Console.WriteLine("4) Display all Categories and their related products");
-                    Console.WriteLine("5) Edit Category Name");
-                    Console.WriteLine("6) Delete Category");
-                    Console.WriteLine("7) Display Products");
-                    Console.WriteLine("8) Add New Product");
-                    Console.WriteLine("9) Edit Product");
+                    Console.WriteLine("3) Edit Category Name");
+                    Console.WriteLine("4) Delete Category");
+                    Console.WriteLine("5) Display Products");
+                    Console.WriteLine("6) Add New Product");
+                    Console.WriteLine("7) Edit Product");
                     Console.WriteLine("\"q\" to quit");
+                    Console.WriteLine();
+                    Console.Write("Enter your choice: ");
                     choice = Console.ReadLine();
                     Console.Clear();
                     logger.Info($"Option {choice} selected");
 
-                    if (choice == "1") { CategoryUtil.Display(); } 
+                    if (choice == "1") { CategoryUtil.DisplayMenu(); } 
                     else if (choice == "2") { CategoryUtil.Add(); }
-                    else if (choice == "3") { CategoryUtil.DisplaySelectedWithRelatedProducts(); }
-                    else if (choice == "4") { CategoryUtil.DisplayAllWithProducts(); }
-                    else if (choice == "5") { CategoryUtil.EditName(); }
-                    else if (choice == "6") { CategoryUtil.Delete(); }
-                    else if (choice == "7") { ProductUtil.DisplayMenu(); }
-                    else if (choice == "8") { ProductUtil.Add(); }
-                    else if (choice == "9") { ProductUtil.Edit(); }
+                    else if (choice == "3") { CategoryUtil.EditName(); }
+                    else if (choice == "4") { CategoryUtil.Delete(); }
+                    else if (choice == "5") { ProductUtil.DisplayMenu(); }
+                    else if (choice == "6") { ProductUtil.Add(); }
+                    else if (choice == "7") { ProductUtil.Edit(); }
                     Console.WriteLine();
                 } while (choice.ToLower() != "q");
             }

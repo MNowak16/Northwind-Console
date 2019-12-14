@@ -21,12 +21,13 @@ namespace NorthwindConsole
                 do
                 {
                     Console.WriteLine("1) Display Categories");
-                    Console.WriteLine("2) Add Category");
+                    Console.WriteLine("2) Add New Category");
                     Console.WriteLine("3) Edit Category Name");
                     Console.WriteLine("4) Delete Category");
                     Console.WriteLine("5) Display Products");
                     Console.WriteLine("6) Add New Product");
                     Console.WriteLine("7) Edit Product");
+                    Console.WriteLine("8) Delete Product");
                     Console.WriteLine("\"q\" to quit");
                     Console.WriteLine();
                     Console.Write("Enter your choice: ");
@@ -34,13 +35,15 @@ namespace NorthwindConsole
                     Console.Clear();
                     logger.Info($"Option {choice} selected");
 
-                    if (choice == "1") { CategoryUtil.DisplayMenu(); } 
+                    if (choice == "1") { CategoryUtil.DisplayMenu(); }
                     else if (choice == "2") { CategoryUtil.Add(); }
                     else if (choice == "3") { CategoryUtil.EditName(); }
                     else if (choice == "4") { CategoryUtil.Delete(); }
                     else if (choice == "5") { ProductUtil.DisplayMenu(); }
                     else if (choice == "6") { ProductUtil.Add(); }
                     else if (choice == "7") { ProductUtil.Edit(); }
+                    else if (choice == "8") { ProductUtil.Delete(); }
+
                     Console.WriteLine();
                 } while (choice.ToLower() != "q");
             }

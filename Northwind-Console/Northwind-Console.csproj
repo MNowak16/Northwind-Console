@@ -63,6 +63,7 @@
     <Compile Include="Utils\ProductDisplays.cs" />
     <Compile Include="Utils\ProductEdits.cs" />
     <Compile Include="Utils\ProductUtil.cs" />
+    <Compile Include="Validate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

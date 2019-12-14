@@ -31,44 +31,39 @@ namespace NorthwindConsole.Utils
                 else if (choice == "2") { CategoryDisplays.DisplaySelectedWithRelatedProducts(); }
                 else if (choice == "3") { CategoryDisplays.DisplayAllWithProducts(); }
             } while (choice.ToLower() != "q");
+            Console.Clear();
         }
 
         public static void Add()
         {
+            var db = new NorthwindContext();
+
             Category category = new Category();
             Console.Write("Enter Category Name: ");
             category.CategoryName = Console.ReadLine();
+
+            //Verify name is not a duplicate
+            bool isValid = Validate.isValidCateogryName(category.CategoryName);
+            if (isValid == true)
+            {
+                logger.Info("Validation passed");
+            }
+            while (isValid == false)
+            {
+                Console.WriteLine("Category name already exists.");
+                Console.Write("Enter Category Name: ");
+                category.CategoryName = Console.ReadLine();
+                isValid = Validate.isValidCateogryName(category.CategoryName);
+                Console.Clear();
+            }
+
             Console.Write("Enter the Category Description: ");
             category.Description = Console.ReadLine();
 
-            ValidationContext context = new ValidationContext(category, null, null);
-            List<ValidationResult> results = new List<ValidationResult>();
+            db.Categories.Add(category);
+            db.SaveChanges();
 
-            var isValid = Validator.TryValidateObject(category, context, results, true);
-            if (isValid)
-            {
-                var db = new NorthwindContext();
-                // check for unique name
-                if (db.Categories.Any(c => c.CategoryName == category.CategoryName))
-                {
-                    // generate validation error
-                    isValid = false;
-                    results.Add(new ValidationResult("Name exists", new string[] { "CategoryName" }));
-                }
-                else
-                {
-                    logger.Info("Validation passed");
-                    db.Categories.Add(category);
-                    db.SaveChanges();
-                }
-            }
-            if (!isValid)
-            {
-                foreach (var result in results)
-                {
-                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-                }
-            }
+            Console.Clear();
         }
 
         public static void EditName()
@@ -78,11 +73,12 @@ namespace NorthwindConsole.Utils
             var query = db.Categories.OrderBy(p => p.CategoryId);
 
             //ask user to select existing category
-            Console.WriteLine("Select the category ID you want to edit:");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
+            Console.WriteLine();
+            Console.Write("Select the category ID you want to edit: ");
 
             int id = int.Parse(Console.ReadLine());
             Console.Clear();
@@ -108,11 +104,12 @@ namespace NorthwindConsole.Utils
             var query = db.Categories.OrderBy(p => p.CategoryId);
 
             //ask user to select existing category
-            Console.WriteLine("Select the category ID to be deleted:");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
+            Console.WriteLine();
+            Console.Write("Select the category ID to be deleted: ");
 
             int id = int.Parse(Console.ReadLine());
             Console.Clear();

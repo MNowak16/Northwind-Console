@@ -55,35 +55,35 @@ namespace NorthwindConsole
             Console.Clear();
             logger.Info($"CategoryId {CategoryID} selected");
 
-            //get product
-            ValidationContext productContext = new ValidationContext(product, null, null);
-            List<ValidationResult> productResults = new List<ValidationResult>();
+            ////get product
+            //ValidationContext productContext = new ValidationContext(product, null, null);
+            //List<ValidationResult> productResults = new List<ValidationResult>();
 
-            var isValidProduct = Validator.TryValidateObject(product, productContext, productResults, true);
-            if (isValidProduct)
-            {
-                var db2 = new NorthwindContext();
-                // check for unique name
-                if (db2.Products.Any(c => c.ProductName == product.ProductName))
-                {
-                    // generate validation error
-                    isValidProduct = false;
-                    productResults.Add(new ValidationResult("Name exists", new string[] { "ProductName" }));
-                }
-                else
-                {
-                    logger.Info("Validation passed");
-                    db.Products.Add(product);
-                    db.SaveChanges();
-                }
-            }
-            if (!isValidProduct)
-            {
-                foreach (var result in productResults)
-                {
-                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-                }
-            }
+            //var isValidProduct = Validator.TryValidateObject(product, productContext, productResults, true);
+            //if (isValidProduct)
+            //{
+            //    var db2 = new NorthwindContext();
+            //    // check for unique name
+            //    if (db2.Products.Any(c => c.ProductName == product.ProductName))
+            //    {
+            //        // generate validation error
+            //        isValidProduct = false;
+            //        productResults.Add(new ValidationResult("Name exists", new string[] { "ProductName" }));
+            //    }
+            //    else
+            //    {
+            //        logger.Info("Validation passed");
+            //        db.Products.Add(product);
+            //        db.SaveChanges();
+            //    }
+            //}
+            //if (!isValidProduct)
+            //{
+            //    foreach (var result in productResults)
+            //    {
+            //        logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+            //    }
+            //}
             
             //Get Supplier ID
             var supplierQuery = db.Suppliers.OrderBy(p => p.SupplierId);
@@ -100,35 +100,35 @@ namespace NorthwindConsole
             Console.Clear();
             logger.Info($"SupplierID {SupplierID} selected");
 
-            //get supplier
-            ValidationContext supplierContext = new ValidationContext(product, null, null);
-            List<ValidationResult> supplierResults = new List<ValidationResult>();
+            ////get supplier
+            //ValidationContext supplierContext = new ValidationContext(product, null, null);
+            //List<ValidationResult> supplierResults = new List<ValidationResult>();
 
-            var isValidSupplier = Validator.TryValidateObject(supplier, supplierContext, supplierResults, true);
-            if (isValidSupplier)
-            {
-                var db2 = new NorthwindContext();
-                // check for unique name
-                if (db2.Suppliers.Any(c => c.CompanyName == product.ProductName))
-                {
-                    // generate validation error
-                    isValidSupplier = false;
-                    supplierResults.Add(new ValidationResult("Company name exists", new string[] { "CompanyName" }));
-                }
-                else
-                {
-                    logger.Info("Validation passed");
-                    db.Suppliers.Add(supplier);
-                    db.SaveChanges();
-                }
-            }
-            if (!isValidSupplier)
-            {
-                foreach (var result in supplierResults)
-                {
-                    logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
-                }
-            }
+            //var isValidSupplier = Validator.TryValidateObject(supplier, supplierContext, supplierResults, true);
+            //if (isValidSupplier)
+            //{
+            //    var db2 = new NorthwindContext();
+            //    // check for unique name
+            //    if (db2.Suppliers.Any(c => c.CompanyName == product.ProductName))
+            //    {
+            //        // generate validation error
+            //        isValidSupplier = false;
+            //        supplierResults.Add(new ValidationResult("Company name exists", new string[] { "CompanyName" }));
+            //    }
+            //    else
+            //    {
+            //        logger.Info("Validation passed");
+            //        db.Suppliers.Add(supplier);
+            //        db.SaveChanges();
+            //    }
+            //}
+            //if (!isValidSupplier)
+            //{
+            //    foreach (var result in supplierResults)
+            //    {
+            //        logger.Error($"{result.MemberNames.First()} : {result.ErrorMessage}");
+            //    }
+            //}
 
             //Add New Product
             var newProduct = new Product
@@ -209,6 +209,32 @@ namespace NorthwindConsole
             else if (columnChoice == "7") { ProductEdits.EditDiscontinued(productChoice); }
             else if (columnChoice == "8") { ProductEdits.EditCategoryID(productChoice); }
             else if (columnChoice == "9") { ProductEdits.EditSupplierID(productChoice); }
+        }
+
+        public static void Delete()
+        {
+            //get context                        
+            var db = new NorthwindContext();
+            var query = db.Products.OrderBy(p => p.ProductName);
+
+            //ask user to select existing category
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductID}) {item.ProductName}");
+            }
+            Console.WriteLine();
+            Console.Write("Select the product ID to be deleted: ");
+
+            int id = int.Parse(Console.ReadLine());
+            Console.Clear();
+            logger.Info($"ProductId {id} selected");
+
+            //get category
+            Product product = db.Products.FirstOrDefault(c => c.ProductID == id);
+
+            //delete category in database
+            db.Products.Remove(product);
+            db.SaveChanges();
         }
     }
 }

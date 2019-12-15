@@ -45,6 +45,7 @@ namespace NorthwindConsole
             Console.Write("Enter Unit Price: ");
             decimal unitPrice;
             string unitPriceStr = Console.ReadLine();
+            //Validate that user input is a decimal
             while (!decimal.TryParse(unitPriceStr, out unitPrice))
             {
                 Console.Write("Please enter valid unit price: ");

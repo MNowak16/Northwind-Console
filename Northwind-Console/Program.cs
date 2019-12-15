@@ -20,15 +20,25 @@ namespace NorthwindConsole
                 string choice;
                 do
                 {
+                    Console.WriteLine("Category Options: ");
                     Console.WriteLine("1) Display Categories");
                     Console.WriteLine("2) Add New Category");
                     Console.WriteLine("3) Edit Category Name");
                     Console.WriteLine("4) Delete Category");
+                    Console.WriteLine();
+                    Console.WriteLine("Product Options: ");
                     Console.WriteLine("5) Display Products");
                     Console.WriteLine("6) Add New Product");
                     Console.WriteLine("7) Edit Product");
                     Console.WriteLine("8) Delete Product");
-                    Console.WriteLine("\"q\" to quit");
+                    Console.WriteLine();
+                    //Console.WriteLine("Supplier Options: ");
+                    //Console.WriteLine("9) Display Suppliers");
+                    //Console.WriteLine("10) Add New Supplier");
+                    //Console.WriteLine("11) Edit Supplier");
+                    //Console.WriteLine("12) Delete Supplier");
+                    //Console.WriteLine();
+                    Console.WriteLine("Enter \"q\" to quit");
                     Console.WriteLine();
                     Console.Write("Enter your choice: ");
                     choice = Console.ReadLine();

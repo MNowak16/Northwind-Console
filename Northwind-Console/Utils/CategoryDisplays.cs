@@ -12,12 +12,24 @@ namespace NorthwindConsole
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public static void Display()
+        public static void DisplayWithIDs()
+        {
+            var db = new NorthwindContext();
+            var query = db.Categories.OrderBy(p => p.CategoryName);
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
+            }
+            Console.WriteLine();
+        }
+
+        public static void DisplayWithDescription()
         {
             var db = new NorthwindContext();
             var query = db.Categories.OrderBy(p => p.CategoryName);
 
-            Console.WriteLine($"{query.Count()} records returned");
+            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine("------------------");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.CategoryName} - {item.Description}");
@@ -36,6 +48,7 @@ namespace NorthwindConsole
             {
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
+            Console.WriteLine();
             Console.Write("Select the category whose products you want to display from the list above: ");
 
             int id = int.Parse(Console.ReadLine());
@@ -43,6 +56,8 @@ namespace NorthwindConsole
             logger.Info($"CategoryId {id} selected");
             Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
             Console.WriteLine($"{category.CategoryName} - {category.Description}");
+            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine("------------------");
             foreach (Product p in category.Products)
             {
                 Console.WriteLine(p.ProductName);

@@ -27,7 +27,7 @@ namespace NorthwindConsole.Utils
                 Console.Clear();
                 logger.Info($"Option {choice} selected");
 
-                if (choice == "1") { CategoryDisplays.Display(); }
+                if (choice == "1") { CategoryDisplays.DisplayWithDescription(); }
                 else if (choice == "2") { CategoryDisplays.DisplaySelectedWithRelatedProducts(); }
                 else if (choice == "3") { CategoryDisplays.DisplayAllWithProducts(); }
             } while (choice.ToLower() != "q");

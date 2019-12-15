@@ -59,23 +59,34 @@ namespace NorthwindConsole
             //ask user to select existing category
             Console.WriteLine();
             Console.WriteLine("List of Categories: ");
-            foreach (var item in categoryQuery)
-            {
-                Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
-            }
+            CategoryDisplays.DisplayWithIDs();
             Console.WriteLine();
             Console.Write("Select Cateogry ID from the list above: ");
 
             int CategoryID = int.Parse(Console.ReadLine());
-            Console.Clear();
-            logger.Info($"CategoryId {CategoryID} selected");
 
             //Validate Category ID
-            //
-            //
-            //
-            //
-            //
+            bool isValidCateogryID = Validate.isValidCategoryID(CategoryID);
+            if (isValidCateogryID == true)
+            {
+                logger.Info("Validation passed");
+            }
+            while (isValidCateogryID == false)
+            {
+                Console.Clear();
+                Console.WriteLine("That is not a valid CategoryID.");
+
+                Console.WriteLine();
+                Console.WriteLine("List of Categories: ");
+                CategoryDisplays.DisplayWithIDs();
+                Console.WriteLine();
+                Console.Write("Select Cateogry ID from the list above: ");
+                CategoryID = int.Parse(Console.ReadLine());
+                isValidCateogryID = Validate.isValidCategoryID(CategoryID);
+                Console.Clear();
+            }
+            Console.Clear();
+            logger.Info($"CategoryId {CategoryID} selected");
 
             //Get Supplier ID
             var supplierQuery = db.Suppliers.OrderBy(p => p.SupplierId);

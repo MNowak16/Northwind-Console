@@ -49,5 +49,27 @@ namespace NorthwindConsole
             else isValid = true;
             return isValid;
         }
+
+        public static bool isValidCategoryID(int CategoryID)
+        {
+            Category category = new Category();
+            ValidationContext context = new ValidationContext(category, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(category, context, results, true);
+
+            var db = new NorthwindContext();
+            // check for unique name
+            if (db.Categories.Any(c => c.CategoryId == CategoryID))
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = false;
+                logger.Error($"CategoryID {CategoryID} does not exist.");
+            }
+            return isValid;
+        }
     }
 }

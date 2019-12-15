@@ -18,7 +18,8 @@ namespace NorthwindConsole.Utils
             var db = new NorthwindContext();
             var query = db.Products.OrderBy(p => p.ProductName);
 
-            Console.WriteLine($"{query.Count()} records returned");
+            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine("------------------");
             foreach (var item in query)
             {
                 if (item.Discontinued == true)
@@ -38,7 +39,8 @@ namespace NorthwindConsole.Utils
             var db = new NorthwindContext();
             var query = db.Products.OrderBy(p => p.ProductName);
 
-            Console.WriteLine($"{query.Count()} records returned");
+            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine("------------------");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.ProductID}) {item.ProductName}");
@@ -51,7 +53,8 @@ namespace NorthwindConsole.Utils
             var db = new NorthwindContext();
             var query = db.Products.OrderBy(p => p.ProductName).Where(p => p.Discontinued == false);
 
-            Console.WriteLine($"{query.Count()} records returned");
+            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine("------------------");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.ProductName}");
@@ -64,7 +67,8 @@ namespace NorthwindConsole.Utils
             var db = new NorthwindContext();
             var query = db.Products.OrderBy(p => p.ProductName).Where(p => p.Discontinued == true);
 
-            Console.WriteLine($"{query.Count()} records returned");
+            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine("------------------");
             foreach (var item in query)
             {
                 Console.WriteLine($"{item.ProductName}");

@@ -71,5 +71,27 @@ namespace NorthwindConsole
             }
             return isValid;
         }
+
+        public static bool isValidSupplierID(int SupplierID)
+        {
+            Supplier supplier = new Supplier();
+            ValidationContext context = new ValidationContext(supplier, null, null);
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            var isValid = Validator.TryValidateObject(supplier, context, results, true);
+
+            var db = new NorthwindContext();
+            // check for unique name
+            if (db.Suppliers.Any(c => c.SupplierId == SupplierID))
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = false;
+                logger.Error($"SupplierID {SupplierID} does not exist.");
+            }
+            return isValid;
+        }
     }
 }

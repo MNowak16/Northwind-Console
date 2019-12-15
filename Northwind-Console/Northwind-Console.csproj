@@ -66,6 +66,7 @@
     <Compile Include="Utils\ProductDisplays.cs" />
     <Compile Include="Utils\ProductEdits.cs" />
     <Compile Include="Utils\ProductUtil.cs" />
+    <Compile Include="Utils\SupplierDisplay.cs" />
     <Compile Include="Utils\Validate.cs" />
   </ItemGroup>
   <ItemGroup>

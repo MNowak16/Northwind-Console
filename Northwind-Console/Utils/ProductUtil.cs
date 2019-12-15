@@ -26,7 +26,7 @@ namespace NorthwindConsole
             bool isValid = Validate.isValidProductName(product.ProductName);
             if (isValid == true)
             {
-                logger.Info("Validation passed");
+                logger.Info("Duplicate name validation passed");
             }
             while (isValid == false)
             {
@@ -69,18 +69,16 @@ namespace NorthwindConsole
             bool isValidCateogryID = Validate.isValidCategoryID(CategoryID);
             if (isValidCateogryID == true)
             {
-                logger.Info("Validation passed");
+                logger.Info("Valid Category ID validation passed");
             }
             while (isValidCateogryID == false)
             {
                 Console.Clear();
-                Console.WriteLine("That is not a valid CategoryID.");
+                Console.WriteLine("That is not a valid Category ID.");
 
                 Console.WriteLine();
-                Console.WriteLine("List of Categories: ");
                 CategoryDisplays.DisplayWithIDs();
-                Console.WriteLine();
-                Console.Write("Select Cateogry ID from the list above: ");
+                Console.Write("Select Category ID from the list above: ");
                 CategoryID = int.Parse(Console.ReadLine());
                 isValidCateogryID = Validate.isValidCategoryID(CategoryID);
                 Console.Clear();
@@ -91,24 +89,36 @@ namespace NorthwindConsole
             //Get Supplier ID
             var supplierQuery = db.Suppliers.OrderBy(p => p.SupplierId);
 
-            //ask user to select existing category
+            //ask user to select existing supplier
             Console.WriteLine();
-            foreach (var item in supplierQuery)
-            {
-                Console.WriteLine($"{item.SupplierId}) {item.CompanyName}");
-            }
+            Console.WriteLine("List of Suppliers: ");
+            SupplierDisplay.DisplayWithIDs();
             Console.WriteLine();
             Console.Write("Enter Supplier ID from the list above: ");
             int SupplierID = int.Parse(Console.ReadLine());
-            Console.Clear();
-            logger.Info($"SupplierID {SupplierID} selected");
 
             //Validate Supplier ID
-            //
-            //
-            //
-            //
-            //
+            bool isValidSupplierID = Validate.isValidSupplierID(SupplierID);
+            if (isValidSupplierID == true)
+            {
+                logger.Info("Valid Supplier ID validation passed");
+            }
+            while (isValidSupplierID == false)
+            {
+                Console.Clear();
+                Console.WriteLine("That is not a valid Supplier ID.");
+
+                Console.WriteLine();
+                Console.WriteLine("List of Suppliers: ");
+                SupplierDisplay.DisplayWithIDs();
+                Console.WriteLine();
+                Console.Write("Select Cateogry ID from the list above: ");
+                CategoryID = int.Parse(Console.ReadLine());
+                isValidCateogryID = Validate.isValidCategoryID(CategoryID);
+                Console.Clear();
+            }
+            Console.Clear();
+            logger.Info($"SupplierID {SupplierID} selected");
 
             //Add New Product
             var newProduct = new Product

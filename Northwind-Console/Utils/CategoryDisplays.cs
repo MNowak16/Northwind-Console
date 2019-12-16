@@ -40,15 +40,11 @@ namespace NorthwindConsole
         public static void DisplaySelectedWithRelatedProducts()
         {
             var db = new NorthwindContext();
-            var query = db.Categories.OrderBy(p => p.CategoryId);
+            var query = db.Categories.Include("Products").OrderBy(p => p.CategoryId);
 
             Console.WriteLine();
             Console.WriteLine("List of Categories: ");
-            foreach (var item in query)
-            {
-                Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
-            }
-            Console.WriteLine();
+            DisplayWithIDs();
             Console.Write("Enter the category whose products to display from the list above: ");
 
             int id = int.Parse(Console.ReadLine());
@@ -56,7 +52,7 @@ namespace NorthwindConsole
             logger.Info($"CategoryId {id} entered");
             Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
             Console.WriteLine($"{category.CategoryName} - {category.Description}");
-            Console.WriteLine($"{query.Count()} record(s) returned");
+            Console.WriteLine($"{category.Products.Count()} record(s) returned");
             Console.WriteLine("------------------");
             foreach (Product p in category.Products)
             {

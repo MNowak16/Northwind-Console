@@ -90,10 +90,12 @@ namespace NorthwindConsole.Utils
             Console.Write("Enter the new category name: ");
             var newName = Console.ReadLine();
             logger.Info($"User entered {newName}");
-
+            
             //update category in database
             category.CategoryName = newName;
             db.SaveChanges();
+
+            Console.Clear();
         }
 
         public static void Delete()

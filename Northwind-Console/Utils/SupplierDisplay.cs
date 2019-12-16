@@ -16,7 +16,7 @@ namespace NorthwindConsole.Utils
         {
             Supplier supplier = new Supplier();
             var db = new NorthwindContext();
-            var query = db.Suppliers.OrderBy(p => p.SupplierId);
+            var query = db.Suppliers.OrderBy(p => p.CompanyName);
 
             Console.WriteLine("List of Suppliers: ");
             foreach (var item in query)
@@ -25,6 +25,5 @@ namespace NorthwindConsole.Utils
             }
             Console.WriteLine();
         }
-
     }
 }

@@ -32,18 +32,12 @@ namespace NorthwindConsole
                     Console.WriteLine("7) Edit Product");
                     Console.WriteLine("8) Delete Product");
                     Console.WriteLine();
-                    //Console.WriteLine("Supplier Options: ");
-                    //Console.WriteLine("9) Display Suppliers");
-                    //Console.WriteLine("10) Add New Supplier");
-                    //Console.WriteLine("11) Edit Supplier");
-                    //Console.WriteLine("12) Delete Supplier");
-                    //Console.WriteLine();
                     Console.WriteLine("Enter \"q\" to quit");
                     Console.WriteLine();
                     Console.Write("Enter your choice: ");
                     choice = Console.ReadLine();
                     Console.Clear();
-                    logger.Info($"Option {choice} selected");
+                    logger.Info($"Option {choice} entered");
 
                     if (choice == "1") { CategoryUtil.DisplayMenu(); }
                     else if (choice == "2") { CategoryUtil.Add(); }

@@ -25,7 +25,7 @@ namespace NorthwindConsole.Utils
                 Console.Write("Enter your choice: ");
                 choice = Console.ReadLine();
                 Console.Clear();
-                logger.Info($"Option {choice} selected");
+                logger.Info($"Option {choice} entered");
 
                 if (choice == "1") { CategoryDisplays.DisplayWithDescription(); }
                 else if (choice == "2") { CategoryDisplays.DisplaySelectedWithRelatedProducts(); }
@@ -39,14 +39,14 @@ namespace NorthwindConsole.Utils
             var db = new NorthwindContext();
 
             Category category = new Category();
-            Console.Write("Enter Category Name: ");
+            Console.Write("Enter a Category Name: ");
             category.CategoryName = Console.ReadLine();
 
             //Verify name is not a duplicate
             bool isValid = Validate.isValidCateogryName(category.CategoryName);
             if (isValid == true)
             {
-                logger.Info("Validation passed");
+                logger.Info("Category name validation passed");
             }
             while (isValid == false)
             {
@@ -54,7 +54,6 @@ namespace NorthwindConsole.Utils
                 Console.Write("Enter Category Name: ");
                 category.CategoryName = Console.ReadLine();
                 isValid = Validate.isValidCateogryName(category.CategoryName);
-                Console.Clear();
             }
 
             Console.Write("Enter the Category Description: ");
@@ -78,17 +77,17 @@ namespace NorthwindConsole.Utils
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
             Console.WriteLine();
-            Console.Write("Select the category ID you want to edit: ");
+            Console.Write("Enter the Category ID to edit: ");
 
             int id = int.Parse(Console.ReadLine());
             Console.Clear();
-            logger.Info($"CategoryId {id} selected");
+            logger.Info($"CategoryId {id} entered");
 
             //get category
             Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
 
             //ask user to provide updated name
-            Console.WriteLine("Enter the new Category Name");
+            Console.Write("Enter the new category name: ");
             var newName = Console.ReadLine();
             logger.Info($"User entered {newName}");
 
@@ -109,11 +108,11 @@ namespace NorthwindConsole.Utils
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
             Console.WriteLine();
-            Console.Write("Select the category ID to be deleted: ");
+            Console.Write("Enter the Category ID to be deleted: ");
 
             int id = int.Parse(Console.ReadLine());
             Console.Clear();
-            logger.Info($"CategoryId {id} selected");
+            logger.Info($"CategoryId {id} entered");
 
             //get category
             Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);

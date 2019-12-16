@@ -49,11 +49,11 @@ namespace NorthwindConsole
                 Console.WriteLine($"{item.CategoryId}) {item.CategoryName}");
             }
             Console.WriteLine();
-            Console.Write("Select the category whose products you want to display from the list above: ");
+            Console.Write("Enter the category whose products to display from the list above: ");
 
             int id = int.Parse(Console.ReadLine());
             Console.Clear();
-            logger.Info($"CategoryId {id} selected");
+            logger.Info($"CategoryId {id} entered");
             Category category = db.Categories.FirstOrDefault(c => c.CategoryId == id);
             Console.WriteLine($"{category.CategoryName} - {category.Description}");
             Console.WriteLine($"{query.Count()} record(s) returned");
